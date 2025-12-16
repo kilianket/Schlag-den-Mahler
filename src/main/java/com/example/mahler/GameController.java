@@ -1,5 +1,12 @@
 package com.example.mahler;
 
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.Parent;
+
 public class GameController {
 
     private Deck deck = new Deck();
@@ -10,9 +17,7 @@ public class GameController {
 
     private VBox root = new VBox(15);
     private Label infoLabel = new Label("Rate die Farbe!");
-
     private HBox buttonBox = new HBox(10);
-}
 
     public GameController() {
         setupUI();
@@ -90,6 +95,28 @@ public class GameController {
         buttonBox.getChildren().addAll(between, outside);
     }
 
+    private void checkBetween(boolean guessBetween) {
+        Card card = deck.drawCard();
+        Card first = secondLastCard;
+        Card second = lastCard;
+
+        lastCard = card;
+
+        int min = Math.min(first.getValue(), second.getValue());
+        int max = Math.max(first.getValue(), second.getValue());
+
+        boolean isBetween = card.getValue() >= min && card.getValue() <= max;
+
+        if (isBetween == guessBetween) {
+            state = GameState.SUIT;
+            infoLabel.setText("Welche Farbe hat die Karte?");
+            showSuitButtons();
+        } else {
+            lose();
+        }
+    }
+
+
     private void showSuitButtons() {
         buttonBox.getChildren().clear();
 
@@ -99,6 +126,18 @@ public class GameController {
             buttonBox.getChildren().add(b);
         }
     }
+
+    private void checkSuit(String guessSuit) {
+        Card card = deck.drawCard();
+        lastCard = card;
+
+        if (card.getSuit().equals(guessSuit)) {
+            win();
+        } else {
+            lose();
+        }
+    }
+
 
     private void win() {
         infoLabel.setText("🎉 Gewonnen!");
@@ -123,3 +162,8 @@ public class GameController {
         infoLabel.setText("Rate die Farbe!");
         showColorButtons();
     }
+
+    public Parent getView() {
+        return root;
+    }
+}
