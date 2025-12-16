@@ -1,25 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.mahler.GameController">
-    <children>
-        <!-- Label für Hinweise -->
-        <Label fx:id="infoLabel" text="Rate die Farbe!" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+<VBox fx:id="root" spacing="20" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.mahler.GameController">
 
-        <!-- ImageView für die Karte -->
-        <ImageView fx:id="ivDeck" fitWidth="200" fitHeight="300" preserveRatio="true" pickOnBounds="true" />
 
-        <!-- Buttons in HBox -->
-        <HBox spacing="20" alignment="CENTER">
-            <children>
-                <Button text="Schwarz" mnemonicParsing="false" onAction="#onColorBlack" style="-fx-font-size: 18px; -fx-background-color: black; -fx-text-fill: white;"/>
-                <Button text="Rot" mnemonicParsing="false" onAction="#onColorRed" style="-fx-font-size: 18px; -fx-background-color: red; -fx-text-fill: white;"/>
-            </children>
-        </HBox>
-    </children>
+<Label fx:id="infoLabel"
+           style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+
+    <ImageView fx:id="ivDeck"
+               fitWidth="200"
+               fitHeight="300"
+               preserveRatio="true" />
+
+    <!-- Runde 1: Rot / Schwarz -->
+    <HBox fx:id="boxColor" spacing="20" alignment="CENTER">
+        <Button text="Rot" onAction="#onColorRed"/>
+        <Button text="Schwarz" onAction="#onColorBlack"/>
+    </HBox>
+
+    <!-- Runde 2: Höher / Niedriger -->
+    <HBox fx:id="boxHighLow" spacing="20" alignment="CENTER" visible="false">
+        <Button text="Höher" onAction="#onHigher"/>
+        <Button text="Niedriger" onAction="#onLower"/>
+    </HBox>
+
+    <!-- Runde 3: Zwischen / Außerhalb -->
+    <HBox fx:id="boxBetween" spacing="20" alignment="CENTER" visible="false">
+        <Button text="Zwischen" onAction="#onBetween"/>
+        <Button text="Außerhalb" onAction="#onOutside"/>
+    </HBox>
+
+    <!-- Runde 4: Farbe -->
+    <HBox fx:id="boxSuit" spacing="10" alignment="CENTER" visible="false">
+        <Button text="Karo" onAction="#onSuitKaro"/>
+        <Button text="Herz" onAction="#onSuitHerz"/>
+        <Button text="Kreuz" onAction="#onSuitKreuz"/>
+        <Button text="Pik" onAction="#onSuitPik"/>
+    </HBox>
+
 </VBox>
