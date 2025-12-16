@@ -1,9 +1,13 @@
 package com.example.mahler;
 
+import javafx.scene.image.Image;
 import java.util.*;
 
 public class Deck {
     private final List<Card> cards = new ArrayList<>();
+
+    private final String[] suits = {"Karo", "Herz", "Kreuz", "Pik"};
+    private final String[] ranks = {"2","3","4","5","6","7","8","9","10","Bube","Dame","König","Ass"};
 
     public Deck() {
         reset();
@@ -12,29 +16,14 @@ public class Deck {
     public void reset() {
         cards.clear();
 
-        for (int i = 0; i < 52; i++) {
-            String suit;
-            int value;
-
-            // Suit bestimmen
-            if (i < 13) suit = "Karo";
-            else if (i < 26) suit = "Herz";
-            else if (i < 39) suit = "Kreuz";
-            else suit = "Pik";
-
-            // Value 2..14
-            value = (i % 13) + 2;
-
-            // Farbe
-            String color = (suit.equals("Karo") || suit.equals("Herz")) ? "rot" : "schwarz";
-
-            // Image-Pfad
-            String imagePath = "/com/example/mahler/cards/card" + i + ".png";
-
-            cards.add(new Card(suit, value, color, imagePath));
+        for (String suit : suits) {
+            for (String rank : ranks) {
+                String path = "/com/example/mahler/cards/" + rank + "_" + suit + ".png";
+                Image img = new Image(getClass().getResource(path).toString());
+                cards.add(new Card(suit, rank, img));
+            }
         }
 
-        // shuffle() gehört hier innerhalb der Methode reset()
         shuffle();
     }
 

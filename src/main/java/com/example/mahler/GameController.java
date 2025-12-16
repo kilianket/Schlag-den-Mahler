@@ -1,14 +1,11 @@
 package com.example.mahler;
 
-
 import javafx.fxml.FXML;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Label;
-import java.util.Random;
+
+import java.net.URL;
 
 public class GameController {
 
@@ -16,34 +13,39 @@ public class GameController {
     private ImageView ivDeck;
 
     @FXML
-    private VBox root;
-
-    @FXML
-    private HBox buttonBox;
-
-    @FXML
     private Label infoLabel;
-
-    private Image[] cards = new Image[52];
-    private Random rand = new Random();
 
     @FXML
     public void initialize() {
-        // Karten laden
-        for (int i = 0; i < 52; i++) {
-            String path = "/com/example/mahler/cards/card" + i + ".png";
-            cards[i] = new Image(getClass().getResource(path).toString());
-        }
+        loadImage("/com/example/mahler/cards/back.png");
+        infoLabel.setText("Rate die Farbe!");
     }
 
     @FXML
-    private void onColorRed() { showNewCard(); }
+    private void onColorBlack() {
+        infoLabel.setText("Schwarz gewählt");
+        showRandomCard();
+    }
 
     @FXML
-    private void onColorBlack() { showNewCard(); }
+    private void onColorRed() {
+        infoLabel.setText("Rot gewählt");
+        showRandomCard();
+    }
 
-    private void showNewCard() {
-        int t = rand.nextInt(52);
-        ivDeck.setImage(cards[t]);
+    private void showRandomCard() {
+        int i = (int) (Math.random() * 52);
+        loadImage("/com/example/mahler/cards/card" + i + ".png");
+    }
+
+    private void loadImage(String path) {
+        URL url = getClass().getResource(path);
+
+        if (url == null) {
+            System.err.println("❌ Bild nicht gefunden: " + path);
+            return;
+        }
+
+        ivDeck.setImage(new Image(url.toExternalForm()));
     }
 }
