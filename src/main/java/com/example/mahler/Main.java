@@ -1,21 +1,25 @@
 package com.example.mahler;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.io.IOException; // <-- unbedingt nötig
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) {
-        GameController controller = new GameController();
-        Scene scene = new Scene(controller.getView(), 600, 400);
-        stage.setTitle("Schlag den Mahler");
+    public void start(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/mahler/main.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Schlag den Mahler");
         stage.show();
     }
 
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 }
