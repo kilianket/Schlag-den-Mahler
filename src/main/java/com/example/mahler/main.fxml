@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.mahler.GameController">
+    <children>
+        <ImageView fx:id="ivDeck" layoutX="50" layoutY="50" fitWidth="100" fitHeight="150"/>
+        <Button fx:id="btnRed" text="Rot" layoutX="50" layoutY="220" onAction="#onColorRed"/>
+        <Button fx:id="btnBlack" text="Schwarz" layoutX="150" layoutY="220" onAction="#onColorBlack"/>
+        <!-- weitere Buttons & ImageViews für Pos1..Pos4 -->
+    </children>
+</AnchorPane>

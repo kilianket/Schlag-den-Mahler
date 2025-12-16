@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class GameController {
 
@@ -18,6 +20,8 @@ public class GameController {
     private VBox root = new VBox(15);
     private Label infoLabel = new Label("Rate die Farbe!");
     private HBox buttonBox = new HBox(10);
+
+    private ImageView currentCardView; // ← hier hinzufügen
 
     public GameController() {
         setupUI();
@@ -166,4 +170,18 @@ public class GameController {
     public Parent getView() {
         return root;
     }
+
+    private void showCard(Card card) {
+        if (currentCardView != null) {
+            root.getChildren().remove(currentCardView);
+        }
+
+        Image image = new Image(getClass().getResourceAsStream(card.getImagePath()));
+        currentCardView = new ImageView(image);
+        currentCardView.setFitWidth(100);
+        currentCardView.setFitHeight(150);
+
+        root.getChildren().add(0, currentCardView);
+    }
+
 }
